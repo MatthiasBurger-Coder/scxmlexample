@@ -22,10 +22,10 @@ dependencies {
     implementation libs.spring.statemachine.starter
     implementation libs.spring.boot.starter.aop
     implementation libs.spring.boot.starter.log4j2
-
-
     developmentOnly libs.spring.boot.devtools
     testImplementation libs.spring.boot.starter.test
+
+    implementation libs.jetbrains.annotations
 
     // --- Lombok ---
     compileOnly libs.lombok

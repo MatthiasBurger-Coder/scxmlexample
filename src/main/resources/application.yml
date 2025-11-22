@@ -4,5 +4,5 @@ spring:
 
 logging:
   level:
-    root: debug
+    root: INFO
     de.burger.it.scxmlexample: DEBUG

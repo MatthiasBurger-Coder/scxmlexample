@@ -5,9 +5,9 @@ springBoot_aop ="3.5.8"
 spring_dependency = "1.1.7"
 statemachine = "4.0.1"
 lombok = "1.18.42"
+jetbrains = "24.0.1"
 
 # Testing
-junit-platform = "6.0.1"
 junit = "6.0.0"
 assertj  = "3.27.6"
 mockito = "5.20.0"
@@ -29,7 +29,7 @@ spring-boot-starter-log4j2       = { module = "org.springframework.boot:spring-b
 spring-statemachine-starter      = { module = "org.springframework.statemachine:spring-statemachine-starter" , version.ref = "statemachine"}
 
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
-
+jetbrains-annotations = {module = "org.jetbrains:annotations", version.ref ="jetbrains" }
 ### Logging
 log4j2-slf4j = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j2" }
 
@@ -47,6 +47,8 @@ junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher
 #archunit
 archunit-junit          = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit"}
 
+#Jakarta
+jakarta-annotation-api = { module = "jakarta.annotation:jakarta.annotation-api", version.ref = "jakarta-annotation" }
 
 # Mockito
 mockito-core          = { module = "org.mockito:mockito-core", version.ref = "mockito"  }
