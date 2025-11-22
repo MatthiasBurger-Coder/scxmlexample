@@ -27,6 +27,8 @@ dependencies {
     developmentOnly libs.spring.boot.devtools
     testImplementation libs.spring.boot.starter.test
 
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+
     implementation libs.jetbrains.annotations
 
     // --- Lombok ---
