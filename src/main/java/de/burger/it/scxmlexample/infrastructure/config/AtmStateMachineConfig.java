@@ -1,29 +1,45 @@
 package de.burger.it.scxmlexample.infrastructure.config;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.apache.commons.scxml2.model.SCXML;
+import org.apache.commons.scxml2.model.State;
+import org.apache.commons.scxml2.model.Transition;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.statemachine.config.EnableStateMachine;
-import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
-import org.springframework.statemachine.config.builders.StateMachineModelConfigurer;
-import org.springframework.statemachine.config.model.StateMachineModelFactory;
-import org.springframework.statemachine.config.model.YamlStateMachineModelFactory;
+import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.config.StateMachineBuilder;
 
 @Configuration
-@EnableStateMachine
-public class AtmStateMachineConfig extends StateMachineConfigurerAdapter<String, String> {
+public class AtmStateMachineConfig {
 
-    @Override
-    public void configure(StateMachineModelConfigurer<String, String> model) throws Exception {
-        model
-                .withModel()
-                .factory(modelFactory());
-    }
+    private static final String SCXML_RESOURCE = "statemachine.scxml";
 
     @Bean
-    public StateMachineModelFactory<String, String> modelFactory() {
-        return new YamlStateMachineModelFactory(new ClassPathResource("atm-machine.yml"));
+    public StateMachine<String, String> atmStateMachine() {
+        ScxmlParser parser = new ScxmlParser();
+        SCXML scxml = parser.parseScxml(SCXML_RESOURCE);
+
+        StateMachineBuilder.Builder<String, String> builder = StateMachineBuilder.builder();
+
+        builder.configureStates()
+                .withStates()
+                .initial(scxml.getInitial())
+                .states(scxml.getChildren().keySet());
+
+        var transitions = builder.configureTransitions();
+        transitions.withExternal();
+
+        for (Object child : scxml.getChildren().values()) {
+            if (child instanceof State state) {
+                for (Transition transition : state.getTransitionsList()) {
+                    transitions
+                            .withExternal()
+                            .source(state.getId())
+                            .target(transition.getTarget())
+                            .event(transition.getEvent());
+                }
+            }
+        }
+
+        return builder.build();
     }
 }
