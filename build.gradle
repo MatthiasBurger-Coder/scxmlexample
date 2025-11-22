@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'java-gradle-plugin'
+    id 'jacoco'
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+}
+
+group = 'de.burger.it'
+version = '0.0.1-SNAPSHOT'
+description = 'SCXMLExample'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(libs.versions.java.get())
+    }
+}
+
+dependencies {
+    /* --- Spring Boot --- */
+    implementation libs.spring.boot.starter.core
+    implementation libs.spring.statemachine.starter
+    implementation libs.spring.boot.starter.aop
+    implementation libs.spring.boot.starter.log4j2
+
+
+    developmentOnly libs.spring.boot.devtools
+    testImplementation libs.spring.boot.starter.test
+
+    // --- Lombok ---
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+
+    testImplementation(libs.assertj.core)
+
+    // --- Tests / JUnit ---
+
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter.core
+    testRuntimeOnly  libs.junit.jupiter.engine
+    testRuntimeOnly  libs.junit.platform.launcher
+
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.junit.jupiter)
+    testImplementation(libs.mockito.inline)
+
+    // Arch-unit
+    testImplementation(libs.archunit.junit)
+
+    // Logging
+    runtimeOnly libs.log4j2.slf4j
+
+}
+
+configurations.configureEach {
+    exclude group: 'org.slf4j', module: 'slf4j-reload4j'
+    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    exclude group: 'ch.qos.logback', module: 'logback-classic'
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
+
+
+
+tasks.test {
+    useJUnitPlatform()
+
+    jvmArgs += "-XX:+EnableDynamicAgentLoading"
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}

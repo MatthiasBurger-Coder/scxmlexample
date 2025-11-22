@@ -1,0 +1,59 @@
+[versions]
+java = "25"
+springBoot = "4.0.0"
+springBoot_aop ="3.5.8"
+spring_dependency = "1.1.7"
+statemachine = "4.0.1"
+lombok = "1.18.42"
+
+# Testing
+junit-platform = "6.0.1"
+junit = "6.0.0"
+assertj  = "3.27.6"
+mockito = "5.20.0"
+mockito_inline = "5.2.0"
+archunit = "1.4.1"
+jakarta-annotation = "3.0.0"
+
+# Logging
+log4j2   = "2.25.2"
+
+[libraries]
+
+
+spring-boot-starter-core         = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot" }
+spring-boot-devtools             = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
+spring-boot-starter-test         = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+spring-boot-starter-aop          = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "springBoot_aop" }
+spring-boot-starter-log4j2       = { module = "org.springframework.boot:spring-boot-starter-log4j2", version.ref = "springBoot"}
+spring-statemachine-starter      = { module = "org.springframework.statemachine:spring-statemachine-starter" , version.ref = "statemachine"}
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
+### Logging
+log4j2-slf4j = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j2" }
+
+### Testing
+
+# Assertions
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+
+# JUnit
+junit-bom               = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter-core      = { module = "org.junit.jupiter:junit-jupiter" }
+junit-jupiter-engine    = { module = "org.junit.jupiter:junit-jupiter-engine" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+#archunit
+archunit-junit          = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit"}
+
+
+# Mockito
+mockito-core          = { module = "org.mockito:mockito-core", version.ref = "mockito"  }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito"  }
+mockito-inline        = { module = "org.mockito:mockito-inline",        version.ref = "mockito_inline" }
+
+[plugins]
+spring-boot                  = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref="spring_dependency" }
+

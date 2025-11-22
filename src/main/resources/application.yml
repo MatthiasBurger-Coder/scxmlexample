@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: "SCXMLExample"
+
+logging:
+  level:
+    root: debug
+    de.burger.it.scxmlexample: DEBUG
