@@ -1,7 +1,8 @@
 package de.burger.it.scxmlexample.infrastructure.config;
 
 
-import org.springframework.context.annotation.Bean;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.statemachine.config.EnableStateMachine;
