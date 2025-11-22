@@ -1,0 +1,43 @@
+statemachine:
+  machine:
+    id: atmStateMachine
+    initial: idle
+    states:
+      - id: idle
+      - id: loading
+      - id: inService
+      - id: outOfService
+      - id: disconnected
+
+    transitions:
+      - source: idle
+        target: loading
+        event: atm.connected
+
+      - source: loading
+        target: inService
+        event: atm.loadSuccess
+      - source: loading
+        target: disconnected
+        event: atm.connClosed
+      - source: loading
+        target: outOfService
+        event: atm.loadFail
+
+      - source: inService
+        target: outOfService
+        event: atm.shutdown
+      - source: inService
+        target: disconnected
+        event: atm.connLost
+
+      - source: outOfService
+        target: inService
+        event: atm.startup
+      - source: outOfService
+        target: disconnected
+        event: atm.connLost
+
+      - source: disconnected
+        target: inService
+        event: atm.connRestored

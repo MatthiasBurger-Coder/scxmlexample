@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestServiceRunner implements CommandLineRunner {
+public class TestServiceRunner /*implements CommandLineRunner*/ {
 
     private final LoggerTestService testService;
 
@@ -16,7 +16,7 @@ public class TestServiceRunner implements CommandLineRunner {
         this.testService = testService;
     }
 
-    @Override
+    /*@Override*/
     public void run(String @NotNull ... args) {
         String result = testService.runTest("Matthias");
         // Optional: just to see something in console besides AOP logs
