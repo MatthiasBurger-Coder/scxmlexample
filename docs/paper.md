@@ -180,6 +180,20 @@ Git LFS speichert große Dateien **nicht** automatisch doppelt. Das Working Dire
 
 Der Server kann erst dann löschen, wenn ein Commit signalisiert, dass die Verarbeitung erfolgreich war. So entsteht ein robustes, fehlertolerantes System ohne Risiko von Datenverlust.
 
+### 3.9 Direkter Streaming-Upload ohne lokale Zwischenspeicherung (JGit + LFS)
+
+Moderne Java-Implementierungen wie Eclipse JGit und kombinierbare Git-LFS-Bibliotheken erlauben es, große Dateien direkt im Stream von Client zu Server zu übertragen, ohne sie vollständig lokal abzulegen. Dadurch entsteht eine hochmoderne, ressourcenschonende Architektur mit folgenden Vorteilen:
+
+* **Kein doppelter Speicherverbrauch**: Große Binärdaten müssen nicht zuerst lokal komplett gespeichert und dann an den Server übertragen werden.
+* **Weniger Risiko lokaler Datenkorruption**: Das Fehlen lokaler Zwischenschritte reduziert typische Fehler wie unvollständige Downloads/Uploads oder Dateisystemprobleme.
+* **Effizientes Arbeiten mit großen Datenmengen**: Streaming liefert direkte Weitergabe der Daten an den LFS-Server, ohne Disk-I/O-Overhead.
+* **Commit- & Hash-validierte Übertragung**: Die Integrität der Daten wird unmittelbar über Git-Objekthashes (Commit-, Tree- oder OID-Hash) abgesichert.
+* **Natürliche Backpressure**: Der Client kann nur so schnell streamen, wie der Server bereit ist zu empfangen, was die Stabilität in Systemen mit niedriger Bandbreite erhöht.
+* **Pipeline-Verarbeitung möglich**: Während gestreamt wird, können Daten bereits serverseitig verarbeitet, analysiert oder in weitere Systeme weitergeschoben werden.
+* **Ideal für hochskalierbare Upload-Systeme**: Gerade bei vielen Clients und großen Dateien sorgt Streaming für minimale lokale Systemlast.
+
+Dieser Ansatz ist dem klassischen rsync-Verhalten deutlich überlegen, da rsync immer auf vollständige lokale Dateien angewiesen ist und weder Streaming, noch Backpressure, noch Hash-basierte Git-Integrität bietet.
+
 ---
 
 ## 4. Zusammenfassung
@@ -250,6 +264,7 @@ Wenn:
 * ein „OK zum Löschen“-Mechanismus benötigt wird,
 * Versionierung oder Auditing wichtig ist,
 * oder Speicher optimiert werden muss,
+* keine Zwischenspeicherung erforderlich ist,
 
 dann ist Git + Git LFS dem klassischen rsync klar überlegen und sollte bevorzugt eingesetzt werden.
 
