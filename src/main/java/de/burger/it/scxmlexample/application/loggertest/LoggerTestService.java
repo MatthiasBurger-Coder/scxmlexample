@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Loggable(Level.DEBUG)
 public class LoggerTestService {
 
+    @Loggable(Level.INFO)
     public String runTest(String name) {
         // simple demo logic
         return "Hello " + name + ", test service executed.";

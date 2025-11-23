@@ -19,11 +19,8 @@ java {
 dependencies {
     /* --- Spring Boot --- */
     implementation libs.spring.boot.starter.core
-    implementation libs.spring.statemachine.starter
-    implementation libs.spring.statemachine.data
     implementation libs.spring.boot.starter.aop
     implementation libs.spring.boot.starter.log4j2
-    implementation libs.commons.scxml2
     developmentOnly libs.spring.boot.devtools
     testImplementation libs.spring.boot.starter.test
 

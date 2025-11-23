@@ -3,12 +3,15 @@ package de.burger.it.scxmlexample.infrastructure.bootstrap;
 
 
 import de.burger.it.scxmlexample.application.loggertest.LoggerTestService;
+import de.burger.it.scxmlexample.infrastructure.logging.Loggable;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.event.Level;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestServiceRunner /*implements CommandLineRunner*/ {
+@Loggable(Level.INFO)
+public class TestServiceRunner implements CommandLineRunner {
 
     private final LoggerTestService testService;
 
@@ -16,7 +19,7 @@ public class TestServiceRunner /*implements CommandLineRunner*/ {
         this.testService = testService;
     }
 
-    /*@Override*/
+    @Override
     public void run(String @NotNull ... args) {
         String result = testService.runTest("Matthias");
         // Optional: just to see something in console besides AOP logs

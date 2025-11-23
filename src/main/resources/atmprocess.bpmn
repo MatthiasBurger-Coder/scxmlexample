@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_ATM" targetNamespace="http://camunda.org/examples" exporter="Camunda Modeler" exporterVersion="5.41.0">
+  <bpmn:process id="atmProcess" name="ATM Process" isExecutable="true">
+    <bpmn:startEvent id="idle" name="Idle" />
+    <bpmn:serviceTask id="loading" name="Loading" camunda:type="external" camunda:topic="loading" />
+    <bpmn:serviceTask id="inService" name="In Service" camunda:type="external" camunda:topic="inService" />
+    <bpmn:serviceTask id="outOfService" name="Out of Service" camunda:type="external" camunda:topic="outOfService" />
+    <bpmn:serviceTask id="disconnected" name="Disconnected" camunda:type="external" camunda:topic="disconnected" />
+    <bpmn:endEvent id="end" name="End" />
+    <bpmn:sequenceFlow id="flow_idle_connected" name="atm.connected" sourceRef="idle" targetRef="loading" />
+    <bpmn:sequenceFlow id="flow_load_success" name="atm.loadSuccess" sourceRef="loading" targetRef="inService" />
+    <bpmn:sequenceFlow id="flow_conn_closed" name="atm.connClosed" sourceRef="loading" targetRef="disconnected" />
+    <bpmn:sequenceFlow id="flow_load_fail" name="atm.loadFail" sourceRef="loading" targetRef="outOfService" />
+    <bpmn:sequenceFlow id="flow_shutdown" name="atm.shutdown" sourceRef="inService" targetRef="outOfService" />
+    <bpmn:sequenceFlow id="flow_conn_lost_from_inservice" name="atm.connLost" sourceRef="inService" targetRef="disconnected" />
+    <bpmn:sequenceFlow id="flow_startup" name="atm.startup" sourceRef="outOfService" targetRef="inService" />
+    <bpmn:sequenceFlow id="flow_conn_lost_from_oos" name="atm.connLost" sourceRef="outOfService" targetRef="disconnected" />
+    <bpmn:sequenceFlow id="flow_conn_restored" name="atm.connRestored" sourceRef="disconnected" targetRef="inService" />
+    <bpmn:sequenceFlow id="flow_inservice_to_end" name="end" sourceRef="inService" targetRef="end" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_atm">
+    <bpmndi:BPMNPlane id="BPMNPlane_atm" bpmnElement="atmProcess">
+      <bpmndi:BPMNShape id="Shape_idle" bpmnElement="idle">
+        <dc:Bounds x="120" y="390" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="129" y="426" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_loading" bpmnElement="loading">
+        <dc:Bounds x="160" y="160" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_inService" bpmnElement="inService">
+        <dc:Bounds x="480" y="440" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_end" bpmnElement="end">
+        <dc:Bounds x="902" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1272" y="205" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_outOfService" bpmnElement="outOfService">
+        <dc:Bounds x="660" y="160" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_disconnected" bpmnElement="disconnected">
+        <dc:Bounds x="390" y="260" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_idle_connected" bpmnElement="flow_idle_connected">
+        <di:waypoint x="156" y="407" />
+        <di:waypoint x="220" y="407" />
+        <di:waypoint x="220" y="240" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="165" y="317" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_load_success" bpmnElement="flow_load_success">
+        <di:waypoint x="280" y="230" />
+        <di:waypoint x="320" y="230" />
+        <di:waypoint x="320" y="480" />
+        <di:waypoint x="480" y="480" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="827" y="493" width="85" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_conn_closed" bpmnElement="flow_conn_closed">
+        <di:waypoint x="280" y="200" />
+        <di:waypoint x="420" y="200" />
+        <di:waypoint x="420" y="260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="380" y="223" width="80" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_load_fail" bpmnElement="flow_load_fail">
+        <di:waypoint x="220" y="160" />
+        <di:waypoint x="220" y="110" />
+        <di:waypoint x="720" y="110" />
+        <di:waypoint x="720" y="160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="429" y="85" width="61" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_shutdown" bpmnElement="flow_shutdown">
+        <di:waypoint x="600" y="480" />
+        <di:waypoint x="830" y="480" />
+        <di:waypoint x="830" y="200" />
+        <di:waypoint x="780" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="781" y="207" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_conn_lost_from_inservice" bpmnElement="flow_conn_lost_from_inservice">
+        <di:waypoint x="560" y="440" />
+        <di:waypoint x="560" y="320" />
+        <di:waypoint x="510" y="320" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="469" y="348" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_startup" bpmnElement="flow_startup">
+        <di:waypoint x="720" y="240" />
+        <di:waypoint x="720" y="410" />
+        <di:waypoint x="580" y="410" />
+        <di:waypoint x="580" y="440" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="677" y="327" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_conn_lost_from_oos" bpmnElement="flow_conn_lost_from_oos">
+        <di:waypoint x="660" y="200" />
+        <di:waypoint x="480" y="200" />
+        <di:waypoint x="480" y="260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="486" y="179" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_conn_restored" bpmnElement="flow_conn_restored">
+        <di:waypoint x="450" y="343" />
+        <di:waypoint x="450" y="450" />
+        <di:waypoint x="480" y="450" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="394" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_inservice_to_end" bpmnElement="flow_inservice_to_end">
+        <di:waypoint x="600" y="510" />
+        <di:waypoint x="920" y="510" />
+        <di:waypoint x="920" y="218" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="755" y="485" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
