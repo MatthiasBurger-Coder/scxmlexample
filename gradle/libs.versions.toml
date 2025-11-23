@@ -6,29 +6,39 @@ spring_dependency = "1.1.7"
 lombok = "1.18.42"
 jetbrains = "24.0.1"
 
+# Processing
+camunda = "8.8.0"
+
 # Testing
 junit = "6.0.0"
 assertj  = "3.27.6"
 mockito = "5.20.0"
 mockito_inline = "5.2.0"
 archunit = "1.4.1"
-jakarta-annotation = "3.0.0"
 
 # Logging
 log4j2   = "2.25.2"
 
 [libraries]
 
-
+# Spring Boot
 spring-boot-starter-core         = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot" }
 spring-boot-devtools             = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
 spring-boot-starter-test         = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 spring-boot-starter-aop          = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "springBoot_aop" }
 spring-boot-starter-log4j2       = { module = "org.springframework.boot:spring-boot-starter-log4j2", version.ref = "springBoot"}
 
-
+# Others
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 jetbrains-annotations = {module = "org.jetbrains:annotations", version.ref ="jetbrains" }
+
+# Processing
+camunda-spring-starter  = { group = "io.camunda", name = "camunda-spring-boot-starter", version.ref = "camunda" }
+camunda-client-java     = { group = "io.camunda", name = "zeebe-client-java",    version.ref = "camunda" }
+camunda-operate-client        = { group = "io.camunda", name = "operate-client-java", version.ref = "camunda" }
+camunda-tasklist-client       = { group = "io.camunda", name = "tasklist-client-java", version.ref = "camunda" }
+
+
 ### Logging
 log4j2-slf4j = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j2" }
 
@@ -55,3 +65,8 @@ mockito-inline        = { module = "org.mockito:mockito-inline",        version.
 spring-boot                  = { id = "org.springframework.boot", version.ref = "springBoot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref="spring_dependency" }
 
+[bundles]
+camunda-core = [
+    "camunda-zeebe-spring-starter",
+    "camunda-zeebe-client-java"
+]
