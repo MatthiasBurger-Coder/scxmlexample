@@ -253,6 +253,7 @@ Bei einfachen Synchronisationen zwischen zwei Rechnern ist rsync sicherlich schn
 Allerdings erfordert Git LFS in großen Umgebungen eine gute Konfiguration, insbesondere hinsichtlich Batch-Downloads, Caching und paralleler Übertragung, um seine Vorteile voll auszuspielen. Ohne diese Optimierungen kann es in bestimmten Fällen langsamer sein als ein gut eingestelltes rsync, das in einfachen Netzwerken und bei wenig geänderten Dateien punktet.
 Insgesamt empfiehlt sich Git + Git LFS vor allem dort, wo neben effizientem Datei-Transfer weitere Anforderungen an Versionierung, automatisierte Löschung, auditierbare Historien und Speicheroptimierung bestehen. Das macht es zur besseren Wahl für moderne, verteilte Client-Server-Uploadsysteme mit hohem Anspruch – while rsync für einfache, punktuelle Synchronisationen weiterhin ein pragmatisches Werkzeug bleibt. 
 Dieser kombinierte Ansatz, der die Vorteile beider Tools in den Kontext der jeweiligen Einsatzszenarien stellt, bietet eine fundierte Entscheidungsgrundlage für den Technologiewechsel in Upload- und Synchronisationsinfrastrukturen
+
 ---
 
 ## 5. Empfehlung
