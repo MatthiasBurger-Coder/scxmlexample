@@ -66,7 +66,7 @@ spring-boot                  = { id = "org.springframework.boot", version.ref = 
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref="spring_dependency" }
 
 [bundles]
-camunda-core = [
-    "camunda-zeebe-spring-starter",
-    "camunda-zeebe-client-java"
-]
+#camunda-core = [
+#    "camunda-zeebe-spring-starter",
+#    "camunda-zeebe-client-java"
+#]

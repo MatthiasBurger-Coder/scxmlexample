@@ -53,9 +53,9 @@ dependencies {
     // Logging
     runtimeOnly libs.log4j2.slf4j
 
-    // Camunda 8.8
-    implementation libs.camunda.zeebe.spring.starter
-    implementation libs.camunda.zeebe.client.java
+//    // Camunda 8.8
+//    implementation libs.camunda.zeebe.spring.starter
+//    implementation libs.camunda.zeebe.client.java
 
     // Optional clients (only if Operate/Tasklist are used)
     // implementation libs.camunda.operate.client
